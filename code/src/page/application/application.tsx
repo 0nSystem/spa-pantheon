@@ -1,11 +1,12 @@
-import {Typography} from "@mui/material";
 import React from "react";
+import ShowApplicationPanel from "./ShowApplicationPanel";
 
 
 const ApplicationPage: React.FC = () => {
+
     return (
         <>
-            <Typography>Applications Id</Typography>
+            <ShowApplicationPanel/>
         </>
     )
 }

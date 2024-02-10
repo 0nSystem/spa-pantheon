@@ -1,11 +1,16 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {RootState} from "../store";
-import {ApplicationDataDTO} from "../../service/output/types";
+import {ApplicationDataDTO, ApplicationWithUserDataDTO} from "../../service/output/types";
 
 interface GeneralState {
     applicationsInfo: ApplicationDataDTO[],
     layoutState: LayoutState,
-    applicationsPage?: ApplicationsPage
+    applicationsPage?: ApplicationsPage,
+    applicationPage?: ApplicationPage,
+}
+
+interface ApplicationPage {
+    applicationWithUserData: ApplicationWithUserDataDTO
 }
 
 interface ApplicationsPage {
@@ -78,6 +83,54 @@ const initialState: GeneralState = {
             }
         ]
     },
+    applicationPage: {
+        applicationWithUserData: {
+            applicationData: {
+                applicationInfo: {
+                    idApplication: 1,
+                    name: "App1",
+                    description: "Description App1",
+                    highDate: new Date().getDate(),
+                    highIdUser: 1,
+                },
+                attributesInfo: [
+                    {
+                        name: "Attribute",
+                        description: "Description Attribute",
+                        idAttribute: 1
+                    }
+                ],
+                permissionInfo: [{
+                    //TODO permission id
+                    name: "Permission1",
+                    description: "Description Permission1"
+                }],
+                rolesInfo: [
+                    {
+                        name: "Role1",
+                        description: "Description Role1",
+                        idRole: 1
+                    }
+                ]
+            },
+            users: [
+                {
+                    userInfo: {
+                        idUser: 1,
+                        name: "asd",
+                        email: "email",
+                        login: "login",
+                        surname: "surname",
+                        highIdUser: 1,
+                        highDate: new Date().getDate()
+                    },
+                    attribute: [],
+                    role: [],
+                    permissions: [],
+                }
+            ]
+        }
+    }
 }
 
 export const generalSlice = createSlice({
@@ -127,5 +180,7 @@ export const selectGeneralApplicationsPage = (state: RootState) => state.general
 
 export const selectGeneralLayout = (state: RootState) => state.general.layoutState;
 export const selectGeneralLayoutRoutePath = (state: RootState) => state.general.layoutState.routePath;
+
+export const selectGeneralLayoutApplication = (state: RootState) => state.general.applicationPage;
 
 export default generalSlice.reducer

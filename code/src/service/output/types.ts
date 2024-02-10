@@ -49,7 +49,7 @@ export interface UserInfoDTO {
     surname: string,
     email: string,
     login: string,
-    highDate: string,
+    highDate: number,
     highIdUser: number,
 }
 

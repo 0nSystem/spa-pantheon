@@ -1,6 +1,6 @@
 import {ApplicationDataDTO} from "../../service/output/types";
 import {Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, IconButton, Typography} from "@mui/material";
-import React from "react";
+import React, {useState} from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -17,7 +17,7 @@ interface OptionsCardInfoApplication {
 
 
 const CardInfoApplication: React.FC<OptionsCardInfoApplication> = ({app}) => {
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
     const {t} = useTranslation();
 
     const navigate = useNavigate();
@@ -26,7 +26,7 @@ const CardInfoApplication: React.FC<OptionsCardInfoApplication> = ({app}) => {
         setExpanded(!expanded);
     };
     const handlerSearchApplicationClick = () => {
-        navigate(webUrl.application.resolve(app.applicationInfo.idApplication), { replace: true })
+        navigate(webUrl.application.resolve(app.applicationInfo.idApplication))
     }
 
     return (
