@@ -5,9 +5,12 @@ import {ApplicationDataDTO} from "../../service/output/types";
 interface GeneralState {
     applicationsInfo: ApplicationDataDTO[],
     layoutState: LayoutState,
+    applicationsPage?: ApplicationsPage
 }
 
-
+interface ApplicationsPage {
+    applicationsFiltered?: ApplicationDataDTO[]
+}
 
 
 interface LayoutState {
@@ -15,10 +18,12 @@ interface LayoutState {
     alert?: AlertMessage,
 
 }
+
 interface RoutePathElement {
     path: string,
     link?: string
 }
+
 interface AlertMessage {
     message: string,
     level: "success" | "info" | "warning" | "error",
@@ -29,7 +34,36 @@ interface AlertMessage {
 
 // Define the initial state using that type
 const initialState: GeneralState = {
-    applicationsInfo: [],
+    applicationsInfo: [
+        {
+            applicationInfo: {
+                idApplication: 1,
+                name: "App1",
+                description: "Description App1",
+                highDate: new Date().getDate(),
+                highIdUser: 1,
+            },
+            attributesInfo: [
+                {
+                    name: "Attribute",
+                    description: "Description Attribute",
+                    idAttribute: 1
+                }
+            ],
+            permissionInfo: [{
+                //TODO permission id
+                name: "Permission1",
+                description: "Description Permission1"
+            }],
+            rolesInfo: [
+                {
+                    name: "Role1",
+                    description: "Description Role1",
+                    idRole: 1
+                }
+            ]
+        }
+    ],
     layoutState: {
         alert: {
             message: "Alerta",
@@ -44,7 +78,6 @@ const initialState: GeneralState = {
             }
         ]
     },
-
 }
 
 export const generalSlice = createSlice({
@@ -65,6 +98,12 @@ export const generalSlice = createSlice({
                 ...message.payload,
                 enable: true
             };
+        },
+        setApplicationsFiltered: (state, message: PayloadAction<ApplicationDataDTO[]>) => {
+            state.applicationsPage = {
+                ...state.applicationsPage,
+                applicationsFiltered: message.payload
+            };
         }
     },
 
@@ -78,11 +117,13 @@ export const generalSlice = createSlice({
 
 })
 
-export const {fetchApplicationsInfo} = generalSlice.actions
+export const {fetchApplicationsInfo,setApplicationsFiltered} = generalSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectGeneralState = (state: RootState) => state.general;
 export const selectGeneralApplicationInfoState = (state: RootState) => state.general.applicationsInfo;
+
+export const selectGeneralApplicationsPage = (state: RootState) => state.general.applicationsPage;
 
 export const selectGeneralLayout = (state: RootState) => state.general.layoutState;
 export const selectGeneralLayoutRoutePath = (state: RootState) => state.general.layoutState.routePath;
