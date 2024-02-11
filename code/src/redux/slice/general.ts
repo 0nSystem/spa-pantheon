@@ -57,6 +57,7 @@ const initialState: GeneralState = {
             ],
             permissionInfo: [{
                 //TODO permission id
+                idPermission: 1,
                 name: "Permission1",
                 description: "Description Permission1"
             }],
@@ -102,6 +103,7 @@ const initialState: GeneralState = {
                 ],
                 permissionInfo: [{
                     //TODO permission id
+                    idPermission: 1,
                     name: "Permission1",
                     description: "Description Permission1"
                 }],
@@ -170,7 +172,7 @@ export const generalSlice = createSlice({
 
 })
 
-export const {fetchApplicationsInfo,setApplicationsFiltered} = generalSlice.actions
+export const {fetchApplicationsInfo, setApplicationsFiltered} = generalSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectGeneralState = (state: RootState) => state.general;

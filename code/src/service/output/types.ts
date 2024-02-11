@@ -19,6 +19,7 @@ export interface ApplicationInfoDTO {
 }
 
 export interface PermissionInfoDTO {
+    idPermission: number,
     name: string,
     description: string
 }

@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({children}) => {
     return (
         <>
 
-            <Box bgcolor={"aqua"}>
+            <Box>
                 <AppBarPanel/>
                 <div style={{
                     position: 'relative',
