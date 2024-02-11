@@ -102,7 +102,6 @@ const initialState: GeneralState = {
                     }
                 ],
                 permissionInfo: [{
-                    //TODO permission id
                     idPermission: 1,
                     name: "Permission1",
                     description: "Description Permission1"
@@ -126,9 +125,29 @@ const initialState: GeneralState = {
                         highIdUser: 1,
                         highDate: new Date().getDate()
                     },
-                    attribute: [],
-                    role: [],
-                    permissions: [],
+                    attribute: [{
+                        name: "Attribute",
+                        description: "Description Attribute",
+                        attributeId: 1,
+                        userId: 1,
+                        values: ["value1", "value2"]
+                    }],
+                    role: [{
+                        name: "Role1",
+                        description: "Description Role1",
+                        idRole: 1
+                    }],
+                    permissions: [{
+                        idPermission: 1,
+                        name: "Permission1",
+                        description: "Description Permission1",
+                    },
+                        {
+                            idPermission: 1,
+                            name: "Permission1",
+                            description: "Description Permission1"
+                        }
+                    ],
                 }
             ]
         }

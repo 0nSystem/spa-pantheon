@@ -47,7 +47,9 @@ const ApplicationPropertiesPanel: React.FC = () => {
                         {
                             applicationWithUserData &&
                             applicationWithUserData.applicationWithUserData.applicationData.permissionInfo.map((e, i) => {
-                                return <EditableListItemText primary={e.name} secondary={e.description}/>
+                                return <EditableListItemText primary={e.name} secondary={e.description}
+                                                             onSave={(a, e) => {
+                                                             }}/>
                             })
                         }
                     </List>
@@ -57,7 +59,9 @@ const ApplicationPropertiesPanel: React.FC = () => {
                         {
                             applicationWithUserData &&
                             applicationWithUserData.applicationWithUserData.applicationData.rolesInfo.map((e, i) => {
-                                return <EditableListItemText primary={e.name} secondary={e.description}/>
+                                return <EditableListItemText primary={e.name} secondary={e.description}
+                                                             onSave={(a, e) => {
+                                                             }}/>
                             })
                         }
                     </List>
@@ -67,7 +71,9 @@ const ApplicationPropertiesPanel: React.FC = () => {
                         {
                             applicationWithUserData &&
                             applicationWithUserData.applicationWithUserData.applicationData.attributesInfo.map((e, i) => {
-                                return <EditableListItemText primary={e.name} secondary={e.description}/>
+                                return <EditableListItemText primary={e.name} secondary={e.description}
+                                                             onSave={(a, e) => {
+                                                             }}/>
                             })
                         }
                     </List>

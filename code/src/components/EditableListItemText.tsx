@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
-import {ListItemText, ListItemButton, TextField, ListItemIcon} from '@mui/material';
+import React, {useState} from 'react';
+import {Collapse, ListItemButton, ListItemText, TextField} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandMore from "./ExpandMore";
 
 interface EditableListItemTextProps {
     primary: string;
     secondary?: string;
+    onSave?: (primary: string, secondary?: string) => void,
+    onDelete?: () => void,
+    children?: React.ReactNode;
 }
 
-const EditableListItemText: React.FC<EditableListItemTextProps> = ({ primary, secondary }) => {
+const EditableListItemText: React.FC<EditableListItemTextProps> = ({
+                                                                       primary, secondary,
+                                                                       onSave, onDelete,
+                                                                       children
+                                                                   }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedPrimary, setEditedPrimary] = useState(primary);
     const [editedSecondary, setEditedSecondary] = useState(secondary || '');
+
+    const [isExpandState, setExpandGeneral] = useState(false);
+
+    const handlerClickExpand = () => {
+        setExpandGeneral(!isExpandState);
+    }
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -35,31 +51,56 @@ const EditableListItemText: React.FC<EditableListItemTextProps> = ({ primary, se
     };
 
     return (
-        <ListItemButton>
-            {isEditing ? (
-                <>
-                    <TextField
-                        value={editedPrimary}
-                        onChange={handleChangePrimary}
-                        fullWidth
-                        autoFocus
-                    />
-                    <TextField
-                        value={editedSecondary}
-                        onChange={handleChangeSecondary}
-                        fullWidth
-                    />
-                    <SaveIcon onClick={handleSave}/>
-                    <CancelIcon onClick={handleCancel}/>
+        <>
+            <ListItemButton>
+                {isEditing ? (
+                    <>
+                        <TextField
+                            value={editedPrimary}
+                            onChange={handleChangePrimary}
+                            fullWidth
+                            autoFocus
+                        />
+                        <TextField
+                            value={editedSecondary}
+                            onChange={handleChangeSecondary}
+                            fullWidth
+                        />
+                        <SaveIcon onClick={handleSave}/>
+                        <CancelIcon onClick={handleCancel}/>
 
-                </>
-            ) : (
-                <>
-                    <ListItemText primary={editedPrimary} secondary={editedSecondary} />
-                    <EditIcon onClick={handleEdit}/>
-                </>
-            )}
-        </ListItemButton>
+                    </>
+                ) : (
+                    <>
+                        <ListItemText primary={editedPrimary} secondary={editedSecondary}/>
+                        {
+                            children &&
+                            <ExpandMore
+                                expand={isExpandState}
+                                onClick={handlerClickExpand}
+                                aria-expanded={isExpandState}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon/>
+                            </ExpandMore>
+                        }
+                        {
+                            onSave &&
+                            <EditIcon onClick={handleEdit}/>
+                        }
+                        {
+                            onDelete &&
+                            <DeleteIcon onClick={onDelete}/>
+                        }
+                    </>
+                )}
+            </ListItemButton>
+            <Collapse in={isExpandState} timeout={"auto"} unmountOnExit>
+                {children && !isEditing && (
+                    children
+                )}
+            </Collapse>
+        </>
     );
 };
 
