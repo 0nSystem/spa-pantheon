@@ -19,7 +19,7 @@ const ShowApplicationPanel: React.FC = () => {
                 <Box
                     sx={{width: '100%', typography: 'body1'}}
                 >
-                    <Grid container spacing={2}>
+                    <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <Typography>{applicationWithUserData.applicationWithUserData.applicationData.applicationInfo.name}</Typography>
                             <Typography>{applicationWithUserData.applicationWithUserData.applicationData.applicationInfo.description}</Typography>

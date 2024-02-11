@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Typography} from "@mui/material";
 import ApplicationsPage from "./applications";
-import ApplicationPage from "./application/application";
+import ApplicationPage from "./application";
 import {webUrl} from "../Constans";
 
 
