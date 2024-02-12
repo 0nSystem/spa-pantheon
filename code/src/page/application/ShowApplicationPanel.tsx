@@ -3,7 +3,7 @@ import {selectGeneralLayoutApplication} from "../../redux/slice/general";
 import React from "react";
 import Box from '@mui/material/Box';
 import {useTranslation} from "react-i18next";
-import {Divider, Grid, Typography} from "@mui/material";
+import {Divider, Grid, Stack, Typography} from "@mui/material";
 import ApplicationPropertiesPanel from "./ApplicationPropertiesPanel";
 import UsersPropertiesPanel from "./UsersPropertiesPanel";
 
@@ -21,11 +21,18 @@ const ShowApplicationPanel: React.FC = () => {
                 >
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
-                            <Typography>{applicationWithUserData.applicationWithUserData.applicationData.applicationInfo.name}</Typography>
-                            <Typography>{applicationWithUserData.applicationWithUserData.applicationData.applicationInfo.description}</Typography>
+                            <Stack spacing={5}>
+                                <Typography variant={"h4"}>
+                                    {applicationWithUserData.applicationWithUserData.applicationData.applicationInfo.name}
+                                </Typography>
+                                <Typography paragraph>
+                                    {applicationWithUserData.applicationWithUserData.applicationData.applicationInfo.description}
+                                </Typography>
+                            </Stack>
                         </Grid>
 
                         <Divider/>
+
                         <ApplicationPropertiesPanel/>
                         <UsersPropertiesPanel/>
                     </Grid>

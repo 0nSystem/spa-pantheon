@@ -1,4 +1,4 @@
-import {Collapse, Grid, List, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Collapse, Grid, IconButton, List, ListItemButton, ListItemText} from "@mui/material";
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import TabList from "@mui/lab/TabList";
@@ -8,7 +8,6 @@ import TabContext from "@mui/lab/TabContext";
 import {useSelector} from "react-redux";
 import {selectGeneralLayoutApplication} from "../../redux/slice/general";
 import {
-    AttributeInfoDTO,
     AttributeUserDataDTO,
     PermissionInfoDTO,
     RoleInfoDTO,
@@ -16,8 +15,8 @@ import {
 } from "../../service/output/types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandMore from "../../components/ExpandMore";
+import TextListItem from "../../components/TextListItem";
 import AddIcon from "@mui/icons-material/Add";
-import EditableListItemText from "../../components/EditableListItemText";
 
 
 const UsersPropertiesPanel: React.FC = () => {
@@ -30,30 +29,31 @@ const UsersPropertiesPanel: React.FC = () => {
     };
 
     return (
-        <>
-            <Grid item md={6} xs={12}>
-                <TabContext value={stateTab}>
-                    <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                        <TabList onChange={handleChangeTab} aria-label="lab API tabs example">
-                            <Tab label="Users" value="users"/>
-                        </TabList>
-                    </Box>
-                    <TabPanel value="users">
-                        {
-                            applicationWithUserData && (
-                                applicationWithUserData.applicationWithUserData.users.map((e, i) => {
-                                    return <UserItem userInfo={e.userInfo}
-                                                     permissions={e.permissions}
-                                                     role={e.role}
-                                                     attribute={e.attribute}
-                                    />
-                                })
-                            )
-                        }
-                    </TabPanel>
-                </TabContext>
-            </Grid>
-        </>
+        <Grid item md={6} xs={12}>
+            <TabContext value={stateTab}>
+                <Box sx={{display: 'flex', justifyContent: "space-between"}}>
+                    <TabList onChange={handleChangeTab} aria-label="lab API tabs example">
+                        <Tab label="Users" value="users"/>
+                    </TabList>
+                    <IconButton>
+                        <AddIcon/>
+                    </IconButton>
+                </Box>
+                <TabPanel value="users">
+                    {
+                        applicationWithUserData && (
+                            applicationWithUserData.applicationWithUserData.users.map((e, i) => {
+                                return <UserItem userInfo={e.userInfo}
+                                                 permissions={e.permissions}
+                                                 role={e.role}
+                                                 attribute={e.attribute}
+                                />
+                            })
+                        )
+                    }
+                </TabPanel>
+            </TabContext>
+        </Grid>
     )
 }
 
@@ -102,12 +102,6 @@ const UserPropertiesComponent: React.FC<PropertiesUserPropertiesComponent> = (
         primary
     }
 ) => {
-    const [isExpand, setExpand] = useState(false);
-
-    const handlerClickExpand = () => {
-        setExpand(!isExpand);
-    }
-
     const handlerDeletePermission = () => {
 
     }
@@ -117,44 +111,28 @@ const UserPropertiesComponent: React.FC<PropertiesUserPropertiesComponent> = (
 
 
     return (
-        <>
-            <ListItemButton>
-                <ListItemText primary={primary}/>
-                <ListItemIcon>
-                    <AddIcon/>
-                </ListItemIcon>
-                <ExpandMore
-                    expand={isExpand}
-                    onClick={handlerClickExpand}
-                    aria-expanded={isExpand}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon/>
-                </ExpandMore>
-            </ListItemButton>
-            <Collapse in={isExpand} timeout={"auto"} unmountOnExit>
-                {
-                    values.map((e, i) => {
-                        if ('idRole' in e) {
-                            return <EditableListItemText
-                                primary={e.name}
-                                secondary={e.description}
-                                onDelete={handlerDeleteRole}/>;
-                        } else if ('idPermission' in e) {
-                            return <EditableListItemText
-                                primary={e.name}
-                                secondary={e.description}
-                                onDelete={handlerDeletePermission}/>;
-                        } else if ('attributeId' in e) {
-                            return <UserMultiplesPropertiesComponent attributeUser={e}/>;
-                        } else {
-                            return <h1>Not Supported</h1>;
-                        }
+        <TextListItem primary={primary} onSave={()=>{}}>
+            {
+                values.map((e, i) => {
+                    if ('idRole' in e) {
+                        return <TextListItem
+                            primary={e.name}
+                            secondary={e.description}
+                            onDelete={handlerDeleteRole}/>;
+                    } else if ('idPermission' in e) {
+                        return <TextListItem
+                            primary={e.name}
+                            secondary={e.description}
+                            onDelete={handlerDeletePermission}/>;
+                    } else if ('attributeId' in e) {
+                        return <UserMultiplesPropertiesComponent attributeUser={e}/>;
+                    } else {
+                        return <h1>Not Supported</h1>;
+                    }
 
-                    })
-                }
-            </Collapse>
-        </>
+                })
+            }
+        </TextListItem>
     )
 }
 
@@ -163,30 +141,24 @@ const UserMultiplesPropertiesComponent: React.FC<{ attributeUser: AttributeUserD
         attributeUser
     }
 ) => {
-    const [isExpand, setExpand] = useState(false);
-
-    const handlerClickExpand = () => {
-        setExpand(!isExpand);
-    }
-
     const handlerDeleteAttribute = () => {
 
     }
 
 
     return (
-        <>
-            <EditableListItemText primary={attributeUser.name}
-                                  secondary={attributeUser.description}
-                                  onDelete={handlerDeleteAttribute}>
-                {
-                    attributeUser.values.map((e, i) => {
-                        return <EditableListItemText primary={e}
-                                                     onDelete={handlerDeleteAttribute}/>
-                    })
-                }
-            </EditableListItemText>
-        </>
+        <TextListItem primary={attributeUser.name}
+                      secondary={attributeUser.description}
+                      onDelete={handlerDeleteAttribute}>
+            {
+                attributeUser.values.map((e, i) => {
+                    return <TextListItem primary={e}
+                                         onDelete={handlerDeleteAttribute}
+                                         onSave={(a,e)=>{}}
+                    />
+                })
+            }
+        </TextListItem>
 
     )
 }

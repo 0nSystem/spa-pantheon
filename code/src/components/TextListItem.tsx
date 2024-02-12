@@ -15,16 +15,20 @@ interface EditableListItemTextProps {
     children?: React.ReactNode;
 }
 
-const EditableListItemText: React.FC<EditableListItemTextProps> = ({
-                                                                       primary, secondary,
-                                                                       onSave, onDelete,
-                                                                       children
-                                                                   }) => {
+const TextListItem: React.FC<EditableListItemTextProps> = (
+    {
+        primary, secondary,
+        onSave, onDelete,
+        children
+    }
+) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [isExpandState, setExpandGeneral] = useState(false);
+
+
     const [editedPrimary, setEditedPrimary] = useState(primary);
     const [editedSecondary, setEditedSecondary] = useState(secondary || '');
 
-    const [isExpandState, setExpandGeneral] = useState(false);
 
     const handlerClickExpand = () => {
         setExpandGeneral(!isExpandState);
@@ -61,11 +65,15 @@ const EditableListItemText: React.FC<EditableListItemTextProps> = ({
                             fullWidth
                             autoFocus
                         />
-                        <TextField
-                            value={editedSecondary}
-                            onChange={handleChangeSecondary}
-                            fullWidth
-                        />
+
+                        {
+                            secondary &&
+                            <TextField
+                                value={editedSecondary}
+                                onChange={handleChangeSecondary}
+                                fullWidth
+                            />
+                        }
                         <SaveIcon onClick={handleSave}/>
                         <CancelIcon onClick={handleCancel}/>
 
@@ -104,4 +112,4 @@ const EditableListItemText: React.FC<EditableListItemTextProps> = ({
     );
 };
 
-export default EditableListItemText;
+export default TextListItem;
