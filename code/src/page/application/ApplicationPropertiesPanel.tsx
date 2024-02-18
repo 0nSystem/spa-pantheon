@@ -8,7 +8,7 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import AddIcon from '@mui/icons-material/Add';
 import {useSelector} from "react-redux";
-import {selectGeneralLayoutApplication} from "../../redux/slice/general";
+import {selectGeneralLayoutApplication} from "../../redux/general/general";
 import TextListItem from "../../components/TextListItem";
 
 

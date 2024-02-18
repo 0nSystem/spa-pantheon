@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {selectGeneralLayoutApplication} from "../../redux/slice/general";
+import {selectGeneralLayoutApplication} from "../../redux/general/general";
 import React from "react";
 import Box from '@mui/material/Box';
 import {useTranslation} from "react-i18next";

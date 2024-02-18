@@ -6,7 +6,7 @@ import Tab from "@mui/material/Tab";
 import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
 import {useSelector} from "react-redux";
-import {selectGeneralLayoutApplication} from "../../redux/slice/general";
+import {selectGeneralLayoutApplication} from "../../redux/general/general";
 import {
     AttributeUserDataDTO,
     PermissionInfoDTO,

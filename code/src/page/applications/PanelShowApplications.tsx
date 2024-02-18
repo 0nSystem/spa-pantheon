@@ -1,5 +1,5 @@
 import React from "react";
-import {selectGeneralApplicationsPage} from "../../redux/slice/general";
+import {selectGeneralApplicationsPage} from "../../redux/general/general";
 import {useSelector} from "react-redux";
 import CardInfoApplication from "./CardInfoApplication";
 

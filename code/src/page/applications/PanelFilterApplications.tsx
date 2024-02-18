@@ -3,7 +3,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
-import {selectGeneralApplicationInfoState, setApplicationsFiltered} from "../../redux/slice/general";
+import {selectGeneralApplicationInfoState, setApplicationsFiltered} from "../../redux/general/general";
 import {ApplicationDataDTO} from "../../service/output/types";
 import {Autocomplete, Checkbox, TextField} from "@mui/material";
 import {AppDispatch} from "../../redux/store";

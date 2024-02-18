@@ -1,6 +1,6 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {generalSlice, selectGeneralLayout} from "../../redux/slice/general";
+import {generalSlice, selectGeneralLayout} from "../../redux/general/general";
 import {AppDispatch} from "../../redux/store";
 import {Alert, Snackbar} from "@mui/material";
 

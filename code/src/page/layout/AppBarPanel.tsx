@@ -1,6 +1,6 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {selectGeneralLayoutRoutePath} from "../../redux/slice/general";
+import {selectGeneralLayoutRoutePath} from "../../redux/general/general";
 import {AppBar, Breadcrumbs, Link, Toolbar, Typography} from "@mui/material";
 
 
